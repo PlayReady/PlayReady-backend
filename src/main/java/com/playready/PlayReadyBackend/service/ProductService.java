@@ -32,6 +32,16 @@ public class ProductService {
         return convertToDto(product);
     }
 
+    public Iterable<ProductDto> getFeaturedProducts() {
+        Iterable<Product> Products = repos.findTop3ByFeaturedIsTrue();
+        List<ProductDto> productDtos = new ArrayList<>();
+
+        for (Product product : Products) {
+            productDtos.add(convertToDto(product));
+        }
+        return productDtos;
+    }
+
     public Long createProduct(ProductDto productDto) {
         Product product = convertToEntity(productDto);
         repos.save(product);
@@ -43,7 +53,7 @@ public class ProductService {
         productDto.id = product.getId();
         productDto.name = product.getName();
         productDto.price = product.getPrice();
-        productDto.featured =product.isFeatured();
+        productDto.featured = product.isFeatured();
         return productDto;
     }
 
