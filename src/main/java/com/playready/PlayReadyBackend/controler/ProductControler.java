@@ -2,10 +2,15 @@ package com.playready.PlayReadyBackend.controler;
 
 import com.playready.PlayReadyBackend.dto.ProductDto;
 import com.playready.PlayReadyBackend.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+
 
 @RestController
 @RequestMapping("/products")
@@ -18,6 +23,31 @@ public class ProductControler {
     }
     @GetMapping
     public ResponseEntity<Iterable<ProductDto>> getProducts() {
-        return ResponseEntity.ok(service.getAllProduct());
+        return ResponseEntity.ok(service.getAllProducts());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getProduct(id));
+
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> createTeacher(@Valid @RequestBody ProductDto productDto, BindingResult br){
+        if(br.hasFieldErrors()){
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : br.getFieldErrors()){
+                sb.append(fe.getField() +": ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body((sb.toString()));
+        }else {
+            Long NewId = service.createProduct(productDto);
+
+            URI uri = URI.create(ServletUriComponentsBuilder
+                    .fromCurrentRequest().path("/" + NewId).toUriString());
+            return ResponseEntity.created(uri).body(uri);
+        }
     }
 }
