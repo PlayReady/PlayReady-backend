@@ -43,6 +43,7 @@ public class ProductService {
         productDto.id = product.getId();
         productDto.name = product.getName();
         productDto.price = product.getPrice();
+        productDto.featured =product.isFeatured();
         return productDto;
     }
 
@@ -50,6 +51,7 @@ public class ProductService {
         Product product = new Product();
         product.setName(productDto.name);
         product.setPrice(productDto.price);
+        product.setFeatured(productDto.featured);
         return product;
     }
 }
