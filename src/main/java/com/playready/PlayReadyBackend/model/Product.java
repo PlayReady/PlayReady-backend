@@ -13,6 +13,7 @@ public class Product {
     private long id;
     private String name;
     private long price;
+    private boolean featured;
 
     public long getId() {
         return id;
@@ -36,5 +37,13 @@ public class Product {
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
     }
 }
