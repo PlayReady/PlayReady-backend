@@ -32,6 +32,11 @@ public class ProductControler {
 
     }
 
+    @GetMapping("/featured")
+    public ResponseEntity<Iterable<ProductDto>> getFeaturedProducts() {
+        return ResponseEntity.ok(service.getFeaturedProducts());
+    }
+
     @PostMapping
     public ResponseEntity<Object> createTeacher(@Valid @RequestBody ProductDto productDto, BindingResult br){
         if(br.hasFieldErrors()){

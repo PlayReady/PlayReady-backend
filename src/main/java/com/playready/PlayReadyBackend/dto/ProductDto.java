@@ -7,4 +7,5 @@ public class ProductDto {
     @NotBlank
     public String name;
     public long price;
+    public boolean featured;
 }
