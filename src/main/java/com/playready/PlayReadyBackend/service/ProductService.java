@@ -4,6 +4,7 @@ import com.playready.PlayReadyBackend.dto.ProductDto;
 import com.playready.PlayReadyBackend.model.Product;
 import com.playready.PlayReadyBackend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class ProductService {
         return convertToDto(product);
     }
 
+    @Transactional
     public Iterable<ProductDto> getFeaturedProducts() {
         Iterable<Product> Products = repos.findTop3ByFeaturedIsTrue();
         List<ProductDto> productDtos = new ArrayList<>();
