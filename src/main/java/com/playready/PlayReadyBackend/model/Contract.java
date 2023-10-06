@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name ="/contacts")
+@Table(name ="contacts")
 public class Contract {
     @Id
     @GeneratedValue
