@@ -1,6 +1,8 @@
 package com.playready.PlayReadyBackend.controler;
 
 import com.playready.PlayReadyBackend.dto.AuthDto;
+import com.playready.PlayReadyBackend.security.JwtService;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,31 +18,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authManager;
     private final JwtService jwtService;
 
     public AuthController(AuthenticationManager man, JwtService service) {
-        this.authenticationManager = man;
+        this.authManager = man;
         this.jwtService = service;
     }
 
     @PostMapping("/auth")
     public ResponseEntity<Object> signIn(@RequestBody AuthDto authDto) {
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(authDto.username, authDto.password);
+            UsernamePasswordAuthenticationToken up =
+                    new UsernamePasswordAuthenticationToken(authDto.username, authDto.password);
 
-        try{
-            Authentication auth = authenticationManager.authenticate(authenticationToken);
+            try {
+                Authentication auth = authManager.authenticate(up);
 
-            UserDetails userDetails = (UserDetails) auth.getPrincipal();
-            String token = JwtService.generateToken(userDetails);
+                UserDetails ud = (UserDetails) auth.getPrincipal();
+                String token = jwtService.generateToken(ud);
 
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.AUTHORIZATION,"Bearer "+token)
-                    .body("Token generated");
-        }
-        catch (AuthenticationException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
-        }
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                        .body("Token generated");
+            }
+            catch (AuthenticationException ex) {
+                return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+            }
     }
 }
