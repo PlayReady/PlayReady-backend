@@ -4,9 +4,12 @@ import com.playready.PlayReadyBackend.dto.ProductDto;
 import com.playready.PlayReadyBackend.model.Product;
 import com.playready.PlayReadyBackend.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -48,12 +51,24 @@ public class ProductService {
         return product.getId();
     }
 
+    public void uploadImage(Long id, MultipartFile file) throws IOException {
+            Optional<Product> productOptional = repos.findById(id);
+            if (productOptional.isPresent() && !file.isEmpty()) {
+                Product product = productOptional.get();
+                product.setImage(file.getBytes());
+                repos.save(product);
+            } else {
+                throw new IOException("product not found");
+            }
+    }
+
     private ProductDto convertToDto(Product product) {
         ProductDto productDto = new ProductDto();
         productDto.id = product.getId();
         productDto.name = product.getName();
         productDto.price = product.getPrice();
         productDto.featured = product.isFeatured();
+        productDto.image = product.getImage();
         return productDto;
     }
 
@@ -62,6 +77,7 @@ public class ProductService {
         product.setName(productDto.name);
         product.setPrice(productDto.price);
         product.setFeatured(productDto.featured);
+        product.setImage(productDto.image);
         return product;
     }
 }

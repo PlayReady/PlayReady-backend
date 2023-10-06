@@ -8,4 +8,5 @@ public class ProductDto {
     public String name;
     public long price;
     public boolean featured;
+    public byte[] image;
 }

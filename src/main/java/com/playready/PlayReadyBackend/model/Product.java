@@ -1,9 +1,6 @@
 package com.playready.PlayReadyBackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "products")
@@ -14,6 +11,9 @@ public class Product {
     private String name;
     private long price;
     private boolean featured;
+
+    @Lob
+    private byte[] image;
 
     public long getId() {
         return id;
@@ -45,5 +45,13 @@ public class Product {
 
     public void setFeatured(boolean featured) {
         this.featured = featured;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] photo) {
+        this.image = photo;
     }
 }
