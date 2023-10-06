@@ -56,9 +56,7 @@ public class SecurityConfig  {
                 .requestMatchers(HttpMethod.POST, "/auth").permitAll()
                 .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/products/**").hasRole("ADMIN")
-                .requestMatchers("/secret").hasRole("ADMIN")
-                .requestMatchers("/**").authenticated()
-                .anyRequest().denyAll()
+                .anyRequest().permitAll()//TODO replace with denyall
                 .and()
                 .addFilterBefore(new JwtRequestFilter(jwtService, userDetailsService()), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
