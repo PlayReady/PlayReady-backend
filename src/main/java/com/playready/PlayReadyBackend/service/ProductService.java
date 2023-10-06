@@ -21,8 +21,9 @@ public class ProductService {
         this.repos = repos;
     }
 
+    @Transactional
     public Iterable<ProductDto> getAllProducts() {
-        Iterable<Product> products = repos.findAll();
+        Iterable<Product> products = repos.findAllByOrderById();
         List<ProductDto> productDtos = new ArrayList<>();
 
         for (Product product : products) {
@@ -38,7 +39,7 @@ public class ProductService {
 
     @Transactional
     public Iterable<ProductDto> getFeaturedProducts() {
-        Iterable<Product> Products = repos.findTop3ByFeaturedIsTrue();
+        Iterable<Product> Products = repos.findTop3ByFeaturedIsTrueOrderById();
         List<ProductDto> productDtos = new ArrayList<>();
 
         for (Product product : Products) {
