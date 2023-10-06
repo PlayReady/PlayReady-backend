@@ -22,4 +22,13 @@ public class Role {
     public void setRolename(String rolename) {
         this.rolename = rolename;
     }
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
+    }
+
 }

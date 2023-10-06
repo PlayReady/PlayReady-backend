@@ -1,8 +1,7 @@
 package com.playready.PlayReadyBackend.model;
 
 import jakarta.persistence.*;
-
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -11,7 +10,7 @@ public class User {
     private String username;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles;
+    private List<Role> roles;
 
     public String getUsername() {
         return username;
@@ -29,11 +28,11 @@ public class User {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }
