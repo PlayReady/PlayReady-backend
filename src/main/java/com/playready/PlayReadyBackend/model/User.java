@@ -13,6 +13,8 @@ public class User {
     private String email;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+    @ManyToMany
+    private List<Product> requestedProducts;
 
     public String getUsername() {
         return username;
@@ -52,5 +54,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Product> getRequestedProducts() {
+        return requestedProducts;
+    }
+
+    public void setRequestedProducts(List<Product> requestedProducts) {
+        this.requestedProducts = requestedProducts;
     }
 }
