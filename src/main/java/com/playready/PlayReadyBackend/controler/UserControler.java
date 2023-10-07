@@ -35,6 +35,8 @@ public class UserControler {
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto) {
         User newUser = new User();
+        newUser.setEmail(userDto.email);
+        newUser.setPhonenumber(userDto.phonenumber);
         newUser.setUsername(userDto.username);
         newUser.setPassword(encoder.encode(userDto.password));
 
@@ -46,7 +48,6 @@ public class UserControler {
             }else{
                 return ResponseEntity.badRequest().body("Role does not exist.");
             }
-
         }
         newUser.setRoles(userRoles);
 

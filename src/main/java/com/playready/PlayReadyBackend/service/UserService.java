@@ -32,13 +32,16 @@ public class UserService {
     private UserDto convertToDto(User user) {
         UserDto userDto = new UserDto();
         userDto.username = user.getUsername();
+        userDto.password = user.getPassword();
+        userDto.phonenumber = user.getPhonenumber();
+        userDto.email = user.getEmail();
         List<Role> roles = user.getRoles();
         List<String> roleNames= new ArrayList<>();
         for(Role role:roles){
             roleNames.add(role.getRolename());
         }
         userDto.roles = roleNames;
-        userDto.password = user.getPassword();
+
         return userDto;
     }
 
