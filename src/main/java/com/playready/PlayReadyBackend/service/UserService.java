@@ -1,5 +1,6 @@
 package com.playready.PlayReadyBackend.service;
 
+import com.playready.PlayReadyBackend.dto.ProductDto;
 import com.playready.PlayReadyBackend.dto.UserDto;
 import com.playready.PlayReadyBackend.model.Product;
 import com.playready.PlayReadyBackend.model.Role;
@@ -7,6 +8,7 @@ import com.playready.PlayReadyBackend.model.User;
 import com.playready.PlayReadyBackend.repository.ProductRepository;
 import com.playready.PlayReadyBackend.repository.RoleRepository;
 import com.playready.PlayReadyBackend.repository.UserRepository;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,29 @@ public class UserService {
         User newUser = convertToEntity(userDto);
         userRepository.save(newUser);
         return newUser;
+    }
+
+    public String addRequestedProduct(String id, ProductDto productDto) {
+        Product product = new Product();
+        Optional<Product> optionalProduct = productRepository.findById(productDto.id);
+        if (optionalProduct.isPresent()) {
+            product = optionalProduct.get();
+        }else{
+            return "product not found";
+        }
+
+        User user = new User();
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+        }else{
+            return "user not found";
+        }
+        List<Product> products = user.getRequestedProducts();
+        products.add(product);
+        user.setRequestedProducts(products);
+        userRepository.save(user);
+        return product.getName();
     }
 
 
@@ -95,7 +120,7 @@ public class UserService {
             }
         }
         user.setRoles(userRoles);
-
+        userRepository.save(user);
         return user;
     }
 
