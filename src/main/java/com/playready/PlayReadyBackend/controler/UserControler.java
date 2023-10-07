@@ -1,5 +1,6 @@
 package com.playready.PlayReadyBackend.controler;
 
+import com.playready.PlayReadyBackend.dto.ProductDto;
 import com.playready.PlayReadyBackend.dto.UserDto;
 import com.playready.PlayReadyBackend.model.User;
 import com.playready.PlayReadyBackend.service.UserService;
@@ -30,7 +31,10 @@ public class UserControler {
         return ResponseEntity.created(uri).body("Succes");
     }
 
-
+    @PostMapping("/{id}/requestedProducts")
+    public ResponseEntity<String> requestProduct(@RequestBody ProductDto productDto, @PathVariable String id) {
+        return ResponseEntity.ok(userService.addRequestedProduct(id, productDto));
+    }
 
 
     @GetMapping
