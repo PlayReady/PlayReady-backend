@@ -8,4 +8,5 @@ public class UserDto {
     public String phonenumber;
     public String email;
     public List<String> roles;
+    public List<Long> requestedproductsid;
 }
