@@ -5,5 +5,7 @@ import java.util.List;
 public class UserDto {
     public String username;
     public String password;
+    public String phonenumber;
+    public String email;
     public List<String> roles;
 }

@@ -9,6 +9,8 @@ public class User {
     @Id
     private String username;
     private String password;
+    private String phonenumber;
+    private String email;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
@@ -34,5 +36,21 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
