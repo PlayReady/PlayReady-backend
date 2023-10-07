@@ -1,6 +1,8 @@
 package com.playready.PlayReadyBackend.service;
 
 import com.playready.PlayReadyBackend.dto.ProductDto;
+import com.playready.PlayReadyBackend.dto.RegisterDto;
+import com.playready.PlayReadyBackend.dto.RequestProductDto;
 import com.playready.PlayReadyBackend.dto.UserDto;
 import com.playready.PlayReadyBackend.model.Product;
 import com.playready.PlayReadyBackend.model.Role;
@@ -48,9 +50,9 @@ public class UserService {
         return newUser;
     }
 
-    public String addRequestedProduct(String id, ProductDto productDto) {
+    public String addRequestedProduct(String id, RequestProductDto requestProductDto) {
         Product product = new Product();
-        Optional<Product> optionalProduct = productRepository.findById(productDto.id);
+        Optional<Product> optionalProduct = productRepository.findById(requestProductDto.id);
         if (optionalProduct.isPresent()) {
             product = optionalProduct.get();
         }else{
