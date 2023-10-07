@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Positive;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class ContractDto {
 
@@ -15,5 +16,6 @@ public class ContractDto {
     @Positive
     public Double price;
     public String renter;
+    public List<Long> invoiceIds;
     public byte[] file;
 }

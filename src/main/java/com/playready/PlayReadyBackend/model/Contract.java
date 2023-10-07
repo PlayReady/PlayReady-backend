@@ -3,6 +3,7 @@ package com.playready.PlayReadyBackend.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name ="contacts")
@@ -15,6 +16,8 @@ public class Contract {
     private Double price;
     @ManyToOne
     private User renter;
+    @OneToMany
+    private List<Invoice> invoices;
     private byte[] file;
 
     public long getId() {
@@ -63,6 +66,14 @@ public class Contract {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 }
 
