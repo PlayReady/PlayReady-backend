@@ -65,7 +65,7 @@ public class ProductService {
             }
     }
 
-    private ProductDto convertToDto(Product product) {
+    public ProductDto convertToDto(Product product) {
         ProductDto productDto = new ProductDto();
         productDto.id = product.getId();
         productDto.name = product.getName();
@@ -75,7 +75,7 @@ public class ProductService {
         return productDto;
     }
 
-    private Product convertToEntity(ProductDto productDto) {
+    public Product convertToEntity(ProductDto productDto) {
         Product product = new Product();
         product.setName(productDto.name);
         product.setPrice(productDto.price);

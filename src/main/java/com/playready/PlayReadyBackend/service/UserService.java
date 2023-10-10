@@ -1,8 +1,6 @@
 package com.playready.PlayReadyBackend.service;
 
 import com.playready.PlayReadyBackend.dto.ProductDto;
-import com.playready.PlayReadyBackend.dto.RegisterDto;
-import com.playready.PlayReadyBackend.dto.RequestProductDto;
 import com.playready.PlayReadyBackend.dto.UserDto;
 import com.playready.PlayReadyBackend.model.Product;
 import com.playready.PlayReadyBackend.model.Role;
@@ -10,7 +8,6 @@ import com.playready.PlayReadyBackend.model.User;
 import com.playready.PlayReadyBackend.repository.ProductRepository;
 import com.playready.PlayReadyBackend.repository.RoleRepository;
 import com.playready.PlayReadyBackend.repository.UserRepository;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +23,14 @@ public class UserService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
+    private final ProductService productService;
 
-    public UserService(PasswordEncoder encoder, UserRepository userRepository, RoleRepository roleRepository, ProductRepository productRepository) {
+    public UserService(PasswordEncoder encoder, UserRepository userRepository, RoleRepository roleRepository, ProductRepository productRepository, ProductService productService) {
         this.roleRepository = roleRepository;
         this.encoder = encoder;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     public Iterable<UserDto> getAllUsers() {
@@ -50,13 +49,13 @@ public class UserService {
         return newUser;
     }
 
-    public String addRequestedProduct(String id, RequestProductDto requestProductDto) {
+    public UserDto addRequestedProduct(String id, ProductDto requestProductDto) {
         Product product = new Product();
         Optional<Product> optionalProduct = productRepository.findById(requestProductDto.id);
         if (optionalProduct.isPresent()) {
             product = optionalProduct.get();
         }else{
-            return "product not found";
+//            return "product not found"; TODO make exception;
         }
 
         User user = new User();
@@ -64,14 +63,29 @@ public class UserService {
         if (optionalUser.isPresent()) {
             user = optionalUser.get();
         }else{
-            return "user not found";
+//            return "user not found";TODO make exception
         }
         List<Product> products = user.getRequestedProducts();
         products.add(product);
         user.setRequestedProducts(products);
         userRepository.save(user);
-        return product.getName();
+        return convertToDto(user);
     }
+
+    public List<ProductDto> getRequestedProducts(String id) {
+        List<ProductDto> productDtos = new ArrayList<>();
+
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            List<Product> requestedProducts = userOptional.get().getRequestedProducts();
+            for (Product product : requestedProducts) {
+                productDtos.add(productService.convertToDto(product));
+            }
+        }
+
+        return productDtos;
+    }
+
 
 
     private UserDto convertToDto(User user) {
