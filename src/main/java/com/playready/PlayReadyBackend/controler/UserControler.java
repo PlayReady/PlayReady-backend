@@ -1,7 +1,6 @@
 package com.playready.PlayReadyBackend.controler;
 
 import com.playready.PlayReadyBackend.dto.ProductDto;
-import com.playready.PlayReadyBackend.dto.RequestProductDto;
 import com.playready.PlayReadyBackend.dto.UserDto;
 import com.playready.PlayReadyBackend.model.User;
 import com.playready.PlayReadyBackend.service.UserService;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -33,8 +33,13 @@ public class UserControler {
     }
 
     @PostMapping("/{id}/requestedProducts")
-    public ResponseEntity<String> requestProduct(@RequestBody RequestProductDto requestProductDto, @PathVariable String id) {
-        return ResponseEntity.ok(userService.addRequestedProduct(id, requestProductDto));
+    public ResponseEntity<UserDto> requestProduct(@RequestBody ProductDto productDto, @PathVariable String id) {
+        return ResponseEntity.ok(userService.addRequestedProduct(id, productDto));
+    }
+
+    @GetMapping("/{id}/requestedProducts")
+    public ResponseEntity<List<ProductDto>> getRequestedProducts(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getRequestedProducts(id));
     }
 
 
