@@ -10,6 +10,7 @@ import com.playready.PlayReadyBackend.repository.RoleRepository;
 import com.playready.PlayReadyBackend.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +50,13 @@ public class UserService {
         return newUser;
     }
 
+    @Transactional
     public UserDto addRequestedProduct(String id, ProductDto requestProductDto) {
         Product product = new Product();
         Optional<Product> optionalProduct = productRepository.findById(requestProductDto.id);
         if (optionalProduct.isPresent()) {
             product = optionalProduct.get();
-        }else{
+        } else {
 //            return "product not found"; TODO make exception;
         }
 
@@ -62,7 +64,7 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             user = optionalUser.get();
-        }else{
+        } else {
 //            return "user not found";TODO make exception
         }
         List<Product> products = user.getRequestedProducts();
@@ -72,6 +74,7 @@ public class UserService {
         return convertToDto(user);
     }
 
+    @Transactional
     public List<ProductDto> getRequestedProducts(String id) {
         List<ProductDto> productDtos = new ArrayList<>();
 
@@ -85,7 +88,6 @@ public class UserService {
 
         return productDtos;
     }
-
 
 
     private UserDto convertToDto(User user) {
