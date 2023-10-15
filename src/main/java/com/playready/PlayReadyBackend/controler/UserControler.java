@@ -47,4 +47,9 @@ public class UserControler {
     public ResponseEntity<Iterable<UserDto>> getUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUsers(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getUsers(id));
+    }
 }
