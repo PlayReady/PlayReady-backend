@@ -52,27 +52,29 @@ public class UserService {
 
     @Transactional
     public UserDto addRequestedProduct(String id, ProductDto requestProductDto) {
-        Product product = new Product();
-        Optional<Product> optionalProduct = productRepository.findById(requestProductDto.id);
-        if (optionalProduct.isPresent()) {
-            product = optionalProduct.get();
-        } else {
-//            return "product not found"; TODO make exception;
-        }
-
-        User user = new User();
+        // Retrieve the user
         Optional<User> optionalUser = userRepository.findById(id);
+
         if (optionalUser.isPresent()) {
-            user = optionalUser.get();
+            User user = optionalUser.get();
+            List<Product> products = user.getRequestedProducts();
+            Product product = productRepository.findById(requestProductDto.id).orElse(null);
+
+            if (product != null && !products.contains(product)) {
+                products.add(product);
+                user.setRequestedProducts(products);
+                userRepository.save(user);
+                return convertToDto(user);
+            } else {
+                //TODO throw exeption
+                throw new RuntimeException();
+            }
         } else {
-//            return "user not found";TODO make exception
+            //TODO throw exeption
+            throw new RuntimeException();
         }
-        List<Product> products = user.getRequestedProducts();
-        products.add(product);
-        user.setRequestedProducts(products);
-        userRepository.save(user);
-        return convertToDto(user);
     }
+
 
     @Transactional
     public List<ProductDto> getRequestedProducts(String id) {
