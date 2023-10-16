@@ -44,6 +44,13 @@ public class UserService {
         return userDtoList;
     }
 
+    public UserDto getUsers(String id) {
+        Optional<User> user = userRepository.findById(id);
+        UserDto userDto = convertToDto(user.get());
+        return userDto;
+    }
+
+
     public User createUser(UserDto userDto) {
         User newUser = convertToEntity(userDto);
         userRepository.save(newUser);
