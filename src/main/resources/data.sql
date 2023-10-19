@@ -12,8 +12,7 @@ VALUES
     ('huurder', 'ROLE_RENTER'),
     ('admin', 'ROLE_ADMIN');
 
--- Insert products into the 'products' table
-INSERT INTO products (id ,name, price, featured, image)
+INSERT INTO products (id, name, price, featured, image)
 VALUES
     (1, 'Product 1', 100.0, true, NULL),
     (2, 'Product 2', 75.0, false, NULL),
