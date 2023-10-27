@@ -10,10 +10,10 @@ import java.time.Year;
 public class Invoice {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     private Year year;
     private Month month;
-    private Long price;
+    private double price;
     private boolean paid;
     @ManyToOne
     private Contract contract;
@@ -42,11 +42,11 @@ public class Invoice {
         this.month = month;
     }
 
-    public Long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
