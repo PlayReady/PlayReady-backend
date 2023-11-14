@@ -19,12 +19,12 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<InvoiceDto>> getInvoice() {
+    public ResponseEntity<Iterable<InvoiceDto>> getInvoices() {
         return ResponseEntity.ok(invoiceService.getAllInvoices());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InvoiceDto> getInvoices(@PathVariable long id) {
+    public ResponseEntity<InvoiceDto> getInvoice(@PathVariable long id) {
         return ResponseEntity.ok(invoiceService.getInvoice(id));
     }
 
@@ -34,5 +34,10 @@ public class InvoiceController {
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/" + invoiceDto.id).toUriString());
         return ResponseEntity.created(uri).body(invoiceDto);
+    }
+
+    @GetMapping("/{id}/file")
+    public ResponseEntity<byte[]> getFile(@PathVariable long id) {
+        return ResponseEntity.ok(invoiceService.getFile(id));
     }
 }

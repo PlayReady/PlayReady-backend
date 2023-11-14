@@ -9,5 +9,6 @@ public class InvoiceDto {
     public Month month;
     public double price;
     public boolean paid;
+    public byte[] file;
     public Long contractId;
 }
