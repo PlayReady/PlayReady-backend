@@ -13,8 +13,22 @@ public class Invoice {
     private long id;
     private Year year;
     private Month month;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
     private double price;
     private boolean paid;
+    private byte[] file;
     @ManyToOne
     private Contract contract;
 

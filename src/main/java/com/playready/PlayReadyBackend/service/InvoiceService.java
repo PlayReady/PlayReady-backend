@@ -29,6 +29,11 @@ public class InvoiceService {
         return convertToDto(invoice);
     }
 
+    public byte[] getFile(long id){
+        return invoiceRepository.findFileById(id);
+    }
+
+
     public Iterable<InvoiceDto> getAllInvoices() {
         List<InvoiceDto> invoiceDtos = new ArrayList<>();
         Iterable<Invoice> invoices = invoiceRepository.findAll();
@@ -45,6 +50,7 @@ public class InvoiceService {
         return invoiceDto;
     }
 
+
     private InvoiceDto convertToDto(Invoice invoice) {
         InvoiceDto invoiceDto = new InvoiceDto();
         invoiceDto.id = invoice.getId();
@@ -52,6 +58,7 @@ public class InvoiceService {
         invoiceDto.year = invoice.getYear();
         invoiceDto.paid = invoice.isPaid();
         invoiceDto.price = invoice.getPrice();
+        invoiceDto.file = invoice.getFile();
         Contract contract = invoice.getContract();
         if(contract !=null){
             invoiceDto.contractId=contract.getId();
@@ -67,6 +74,7 @@ public class InvoiceService {
         invoice.setMonth(invoiceDto.month);
         invoice.setPrice(invoiceDto.price);
         invoice.setPaid(invoiceDto.paid);
+        invoice.setFile(invoiceDto.file);
         if(invoiceDto.contractId != null) {
             invoice.setContract(contractRepository.findById(invoiceDto.contractId).orElseThrow(() -> null));
         }
