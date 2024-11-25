@@ -43,7 +43,7 @@ public class UserService {
         }
         return userDtoList;
     }
-
+    @Transactional
     public UserDto getUsers(String id) {
         Optional<User> user = userRepository.findById(id);
         UserDto userDto = convertToDto(user.get());

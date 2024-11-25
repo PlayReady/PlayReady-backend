@@ -4,7 +4,7 @@ INSERT INTO users (username, password, phonenumber, email)
 VALUES
     ('gebruiker', '$2a$10$NrJxx/Km4ilYUwyrb5k1uOhDYR4IFXntYIQuv/X3nR3b/AOU01FEy', '123-456-7890', 'gebruiker@example.com'),
     ('huurder', '$2a$10$IkXxYDaSJOQknArJWPvYvuUsx1947YDz2h/KnqDkgYvtGdO3ZDgCG', '987-654-3210', 'huurder@example.com'),
-    ('admin', '$2a$10$vsDkDo1ZEH7xH23Ogf6vcO9LjVr8PmS.mLoJUPlbqfWcMNWZv/yPW', '555-555-5555', 'admin@example.com');
+    ('admin', '$2a$10$A5rTLtrPQyqah54yfDy0u..XXi5QXo2dUv95NH6daqizaNGqSjiQS', '555-555-5555', 'admin@example.com');
 
 INSERT INTO users_roles (users_username, roles_rolename)
 VALUES
