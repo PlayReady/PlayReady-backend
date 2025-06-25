@@ -2,14 +2,16 @@ name: Run Spring Boot Tests
 
 on:
   push:
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up JDK 17
@@ -18,8 +20,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant execute permission to mvnw
+      - name: Grant execute permission to Maven wrapper
         run: chmod +x ./mvnw
+
+      - name: Force Maven to update dependencies
+        run: ./mvnw --batch-mode --update-snapshots validate
 
       - name: Run tests
         run: ./mvnw test
