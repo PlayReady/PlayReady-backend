@@ -2,8 +2,8 @@ insert into roles(rolename) values ('ROLE_USER'), ('ROLE_ADMIN'), ('ROLE_RENTER'
 
 INSERT INTO users (username, password, phonenumber, email)
 VALUES
-    ('gebruiker', '$2a$10$NrJxx/Km4ilYUwyrb5k1uOhDYR4IFXntYIQuv/X3nR3b/AOU01FEy', '123-456-7890', 'gebruiker@example.com'),
-    ('huurder', '$2a$10$IkXxYDaSJOQknArJWPvYvuUsx1947YDz2h/KnqDkgYvtGdO3ZDgCG', '987-654-3210', 'huurder@example.com'),
+    ('gebruiker', '$2a$10$IUiymMSx7MilD.Bt9jkr0.d5Wi8nfHj/5clTaDVqOVstuCRwvyS2W', '123-456-7890', 'gebruiker@example.com'),
+    ('huurder', '$2a$10$B./xD9eKww0aB0/NOAy0D.x9Ow/RML0SqhmAaWyagfhO7oLPgL4k2', '987-654-3210', 'huurder@example.com'),
     ('admin', '$2a$10$A5rTLtrPQyqah54yfDy0u..XXi5QXo2dUv95NH6daqizaNGqSjiQS', '555-555-5555', 'admin@example.com');
 
 INSERT INTO users_roles (users_username, roles_rolename)

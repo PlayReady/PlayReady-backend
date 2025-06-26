@@ -5,6 +5,7 @@ import com.playready.PlayReadyBackend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.nio.file.Files;
 import java.util.Optional;
 
 @Component
+@Profile("dev")
 public class ImageLoader implements ApplicationRunner {
 
     @Autowired
