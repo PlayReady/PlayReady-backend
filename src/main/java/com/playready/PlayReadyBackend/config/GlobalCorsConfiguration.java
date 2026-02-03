@@ -15,7 +15,7 @@ public class GlobalCorsConfiguration
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins('https://playready.nl')
+                        .allowedOrigins("https://playready.nl")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE");
             }
         };
