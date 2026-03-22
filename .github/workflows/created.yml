@@ -1,0 +1,13 @@
+name: created
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  testing:
+    name: job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: print created
+        run: echo created

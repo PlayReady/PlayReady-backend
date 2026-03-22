@@ -1,0 +1,13 @@
+name: published
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  testing:
+    name: job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: print published
+        run: echo published
