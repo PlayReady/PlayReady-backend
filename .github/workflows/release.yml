@@ -5,3 +5,6 @@ on:
     types: [ released ]
 
 jobs:
+  testing:
+    name: job 1
+    runs-on: ubuntu-latest
