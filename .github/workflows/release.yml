@@ -1,3 +1,7 @@
+name: released
+
 on:
   release:
-    types: [released]
+    types: [ released ]
+
+jobs:
