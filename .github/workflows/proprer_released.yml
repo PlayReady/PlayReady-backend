@@ -2,7 +2,7 @@ name: proper released
 
 on:
   release:
-    types: [ released ]
+    types: [ edited ]
 
 jobs:
   testing:
