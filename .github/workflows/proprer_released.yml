@@ -1,0 +1,21 @@
+name: proper released
+
+on:
+  release:
+    types: [ released ]
+
+jobs:
+  testing:
+    name: job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: print hello
+        run: echo hello
+      - name: Get latest release from API
+        id: api
+        run: |
+          latest=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
+          echo "latest=$latest" >> $GITHUB_OUTPUT
+      - name: Compare with current release
+        if: ${{ steps.api.outputs.latest == github.event.release.tag_name }}
+        run: echo "This is the latest release"
