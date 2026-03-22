@@ -9,5 +9,5 @@ jobs:
     name: job 1
     runs-on: ubuntu-latest
     steps:
-      - name: print hello
-        run: echo hello
+      - name: print released
+        run: echo released
