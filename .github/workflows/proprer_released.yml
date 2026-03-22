@@ -16,6 +16,11 @@ jobs:
         run: |
           latest=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
           echo "latest=$latest" >> $GITHUB_OUTPUT
+      - name: echo output
+        run: echo steps.api.outputs.latest
       - name: Compare with current release
         if: ${{ steps.api.outputs.latest == github.event.release.tag_name }}
         run: echo "This is the latest release"
+      - name: Skip if not latest
+        if: ${{ steps.api.outputs.latest != github.event.release.tag_name }}
+        run: echo "Not the latest release, skipping..."
